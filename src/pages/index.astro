@@ -1,4 +1,5 @@
 ---
+import AboutHeroImage from "../assets/about-me.jpg";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
@@ -13,12 +14,41 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
     <body>
         <Header />
         <main>
-            <h1>你好！</h1>
-            <p>
-                我是 Theo，一个 C++
-                开发者，欢迎来到我的主页，这里有我的编程思考和生活记录。
-            </p>
+            <article class="about">
+                <img
+                    src={AboutHeroImage.src}
+                    width={AboutHeroImage.width}
+                    height={AboutHeroImage.height}
+                    alt="Theo"
+                    loading="eager"
+                />
+                <p class="image-caption">2025年拍摄于新疆的那拉提草原</p>
+                <h1>I'm Theo</h1>
+                <p>
+                    我是一个 C++ 开发者，专注于 Linux C++ 系统开发领域的工作。
+                </p>
+                <p>
+                    同时也在思考在 AI 时代，怎么样更快更好的用 C++
+                    构建我们的世界。
+                </p>
+            </article>
         </main>
         <Footer />
     </body>
 </html>
+
+<style>
+    .about img {
+        display: block;
+        margin: 0 auto 0.75em;
+        box-shadow: var(--box-shadow);
+    }
+
+    .image-caption {
+        margin: 0 0 2em;
+        color: rgb(var(--gray));
+        font-size: 0.875em;
+        line-height: 1.4;
+        text-align: center;
+    }
+</style>
