@@ -5,7 +5,7 @@ pubDate: 'July 7 2026'
 heroImage: '../../assets/blog-placeholder-3.jpg'
 tags: ['algorithm']
 updatedDate: 'July 7 2026'
-draft: true
+draft: false
 ---
 
 这道题目颇为神奇，我第一时间想到用动态规划来解题，也写出了很简洁的代码，但是看题解才发现，竟然不是最佳解法。
