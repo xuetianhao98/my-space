@@ -36,5 +36,7 @@ export default defineConfig({
     },
   ],
 
-  adapter: cloudflare(),
+  // Pre-rendered Markdown images should be emitted as static assets instead of
+  // relying on Cloudflare's runtime /_image endpoint.
+  adapter: cloudflare({ imageService: "compile" }),
 });
