@@ -1,0 +1,141 @@
+---
+import type { BlogPost } from "../lib/blog";
+
+interface Props {
+  posts: BlogPost[];
+  currentPostId: string;
+}
+
+const { posts, currentPostId } = Astro.props;
+---
+
+<aside class="blog-directory" aria-labelledby="blog-directory-title">
+  <h2 id="blog-directory-title">文章目录</h2>
+  <nav aria-label="全部文章">
+    <ol>
+      {
+        posts.map((post) => (
+          <li>
+            <a
+              href={`/blog/${post.id}/`}
+              aria-current={post.id === currentPostId ? "page" : undefined}
+            >
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString("zh-CN", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })}
+              </time>
+              <span>{post.data.title}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+</aside>
+
+<style>
+  .blog-directory {
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    padding: 0 1.5rem 0 0;
+    border-right: 1px solid rgb(var(--gray-light));
+    scrollbar-width: thin;
+  }
+
+  h2 {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+  }
+
+  ol {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.7rem 0.9rem;
+    border-left: 3px solid transparent;
+    border-radius: 0 8px 8px 0;
+    color: rgb(var(--gray-dark));
+    text-decoration: none;
+    transition:
+      color 160ms ease,
+      background-color 160ms ease,
+      border-color 160ms ease;
+  }
+
+  a:hover {
+    background: rgba(var(--gray-light), 0.55);
+    color: var(--accent);
+  }
+
+  a[aria-current="page"] {
+    border-left-color: var(--accent);
+    background: rgba(var(--gray-light), 0.75);
+    color: var(--accent-dark);
+  }
+
+  time {
+    color: rgb(var(--gray));
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+
+  span {
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 900px) {
+    .blog-directory {
+      position: static;
+      max-height: none;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: 0 0 1rem;
+      border-right: 0;
+      border-bottom: 1px solid rgb(var(--gray-light));
+    }
+
+    h2 {
+      margin-bottom: 0.75rem;
+    }
+
+    ol {
+      display: flex;
+      width: max-content;
+      max-width: none;
+      gap: 0.5rem;
+    }
+
+    li {
+      width: 14rem;
+    }
+
+    a {
+      height: 100%;
+      box-sizing: border-box;
+      border-top: 3px solid transparent;
+      border-left: 0;
+      border-radius: 8px;
+    }
+
+    a[aria-current="page"] {
+      border-top-color: var(--accent);
+      border-left-color: transparent;
+    }
+  }
+</style>

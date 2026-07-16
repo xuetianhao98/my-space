@@ -1,6 +1,10 @@
 ---
 import { SITE_TITLE } from "../consts";
+import { getPublishedPosts } from "../lib/blog";
 import HeaderLink from "./HeaderLink.astro";
+
+const [latestPost] = await getPublishedPosts();
+const blogHref = latestPost ? `/blog/${latestPost.id}/` : "/blog";
 ---
 
 <header>
@@ -8,7 +12,7 @@ import HeaderLink from "./HeaderLink.astro";
     <h2><a href="/">{SITE_TITLE}</a></h2>
     <div class="internal-links">
       <HeaderLink href="/">Home</HeaderLink>
-      <HeaderLink href="/blog">Blog</HeaderLink>
+      <HeaderLink href={blogHref} activePath="/blog">Blog</HeaderLink>
     </div>
     <div class="social-links">
       <!-- <a href="https://m.webtoo.ls/@astro" target="_blank">
